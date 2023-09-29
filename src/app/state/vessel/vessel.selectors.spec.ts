@@ -1,4 +1,4 @@
-import { VesselEntity } from './vessel.models';
+import { Vessel } from '../../models/vessel.models';
 import {
   vesselAdapter,
   VesselPartialState,
@@ -8,7 +8,7 @@ import * as VesselSelectors from './vessel.selectors';
 
 describe('Vessel Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getVesselId = (it: VesselEntity) => it.id;
+  const getVesselId = (it: Vessel) => it.id;
   const createVesselEntity = (id: number, name: string) =>
     ({
       'id': id,
@@ -20,7 +20,7 @@ describe('Vessel Selectors', () => {
       'startDate': '1998-01-01T00:00:00Z',
       'active': true,
       'vesselType': 'Dry Cargo'
-    } as VesselEntity);
+    } as Vessel);
 
   let state: VesselPartialState;
 
@@ -50,7 +50,7 @@ describe('Vessel Selectors', () => {
     });
 
     it('selectEntity() should return the selected Entity', () => {
-      const result = VesselSelectors.selectEntity(state) as VesselEntity;
+      const result = VesselSelectors.selectEntity(state) as Vessel;
       const selId = getVesselId(result);
 
       expect(selId).toBe(2);

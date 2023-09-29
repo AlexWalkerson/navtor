@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
-import * as VesselActions from './vessel.actions';
-import * as VesselSelectors from './vessel.selectors';
+import * as VesselActions from '../state/vessel/vessel.actions';
+import * as VesselSelectors from '../state/vessel/vessel.selectors';
 
 @Injectable()
 export class VesselFacade {

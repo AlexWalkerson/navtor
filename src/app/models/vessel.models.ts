@@ -1,7 +1,7 @@
 /**
  * Interface for the Vessel data
  */
-export interface VesselEntity {
+export interface Vessel {
     id: number;
     name: string;
     mmsi: number;

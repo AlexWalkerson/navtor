@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import * as VesselActions from './vessel.actions';
-import { VesselEntity } from './vessel.models';
+import { Vessel } from '../../models/vessel.models';
 import {
   VesselState,
   initialVesselState,
@@ -9,7 +9,7 @@ import {
 } from './vessel.reducer';
 
 describe('Vessel Reducer', () => {
-  const createVesselEntity = (id: number, name: string): VesselEntity => ({
+  const createVesselEntity = (id: number, name: string): Vessel => ({
     'id': id,
     'name': name,
     'mmsi': 999999901,
@@ -27,7 +27,7 @@ describe('Vessel Reducer', () => {
         createVesselEntity(1, 'PRODUCT-AAA'),
         createVesselEntity(2, 'PRODUCT-zzz'),
       ];
-      const action = VesselActions.loadVesselSuccess({ vessel });
+      const action = VesselActions.loadVesselSuccess({ vessels: vessel });
 
       const result: VesselState = vesselReducer(initialVesselState, action);
 

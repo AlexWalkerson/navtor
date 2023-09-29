@@ -2,13 +2,14 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
 import * as VesselActions from './vessel.actions';
-import { VesselEntity } from './vessel.models';
+import { Vessel } from '../../models/vessel.models';
 
 export const VESSEL_FEATURE_KEY = 'vessel';
 
-export interface VesselState extends EntityState<VesselEntity> {
+export interface VesselState extends EntityState<Vessel> {
   selectedId?: string | number; // which Vessel record has been selected
   loaded: boolean; // has the Vessel list been loaded
+  loading: boolean;
   error?: string | null; // last known error (if any)
 }
 
@@ -16,28 +17,35 @@ export interface VesselPartialState {
   readonly [VESSEL_FEATURE_KEY]: VesselState;
 }
 
-export const vesselAdapter: EntityAdapter<VesselEntity> =
-  createEntityAdapter<VesselEntity>();
+export const vesselAdapter: EntityAdapter<Vessel> =
+  createEntityAdapter<Vessel>();
 
 export const initialVesselState: VesselState = vesselAdapter.getInitialState({
   // set initial required properties
-  loaded: false,
+  loading: false,
+  loaded: false
 });
 
 const reducer = createReducer(
   initialVesselState,
-  on(VesselActions.loadVessel, (state) => ({
+  on(VesselActions.loadVessel, (state) => ( {
     ...state,
     loaded: false,
-    error: null,
-  })),
-  on(VesselActions.loadVesselSuccess, (state, { vessel }) =>
-    vesselAdapter.setAll(vessel, { ...state, loaded: true })
+    loading: true,
+    error: null
+  } )),
+  on(VesselActions.loadVesselSuccess, (state, { vessels }) =>
+    vesselAdapter.setAll(vessels, {
+      ...state,
+      loading: false,
+      loaded: true
+    })
   ),
-  on(VesselActions.loadVesselFailure, (state, { error }) => ({
+  on(VesselActions.loadVesselFailure, (state, { error }) => ( {
     ...state,
-    error,
-  }))
+    loading: false,
+    error
+  } ))
 );
 
 export function vesselReducer(state: VesselState | undefined, action: Action) {

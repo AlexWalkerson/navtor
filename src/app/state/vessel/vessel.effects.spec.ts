@@ -30,7 +30,7 @@ describe('VesselEffects', () => {
       actions = hot('-a-|', { a: VesselActions.loadVessel() });
 
       const expected = hot('-a-|', {
-        a: VesselActions.loadVesselSuccess({ vessel: [] }),
+        a: VesselActions.loadVesselSuccess({ vessels: [] }),
       });
 
       expect(effects.init$).toBeObservable(expected);

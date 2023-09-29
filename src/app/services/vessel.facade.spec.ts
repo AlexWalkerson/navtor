@@ -4,11 +4,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
 
-import * as VesselActions from './vessel.actions';
-import { VesselEffects } from './vessel.effects';
-import { VesselFacade } from './vessel.facade';
-import { VesselEntity } from './vessel.models';
-import { VESSEL_FEATURE_KEY, vesselReducer, VesselState } from './vessel.reducer';
+import * as VesselActions from '../state/vessel/vessel.actions';
+import { VesselEffects } from '../state/vessel/vessel.effects';
+import { VesselFacade } from '../services/vessel.facade';
+import { Vessel } from '../models/vessel.models';
+import { VESSEL_FEATURE_KEY, vesselReducer, VesselState } from '../state/vessel/vessel.reducer';
 
 interface TestSchema {
   vessel: VesselState;
@@ -17,7 +17,7 @@ interface TestSchema {
 describe('VesselFacade', () => {
   let facade: VesselFacade;
   let store: Store<TestSchema>;
-  const createVesselEntity = (id: number, name: string): VesselEntity => ({
+  const createVesselEntity = (id: number, name: string): Vessel => ({
     'id': id,
     'name': name,
     'mmsi': 999999901,
@@ -85,7 +85,7 @@ describe('VesselFacade', () => {
 
       store.dispatch(
         VesselActions.loadVesselSuccess({
-          vessel: [createVesselEntity(1, 'AAA'), createVesselEntity(2, 'BBB')],
+          vessels: [createVesselEntity(1, 'AAA'), createVesselEntity(2, 'BBB')],
         })
       );
 
