@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, catchError, of, tap } from 'rxjs';
@@ -16,8 +17,8 @@ export class VesselEffects {
       switchMap(() => this.vesselApi.fetch()),
       tap(e => console.log(e)),
       switchMap((vessels) => of(VesselActions.loadVesselSuccess({ vessels }))),
-      catchError((error) => {
-        return of(VesselActions.loadVesselFailure({ error }));
+      catchError((error: HttpErrorResponse) => {
+        return of(VesselActions.loadVesselFailure({ error: error?.message }));
       })
     )
   );

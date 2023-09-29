@@ -45,7 +45,12 @@ const reducer = createReducer(
     ...state,
     loading: false,
     error
-  } ))
+  } )),
+  on(VesselActions.selectVessel, (state, { vessel }) => ({
+    ...state,
+    selectedId: vessel.id
+    })
+  )
 );
 
 export function vesselReducer(state: VesselState | undefined, action: Action) {

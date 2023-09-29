@@ -1,26 +1,11 @@
 import { Vessel } from '../../models/vessel.models';
-import {
-  vesselAdapter,
-  VesselPartialState,
-  initialVesselState,
-} from './vessel.reducer';
+import { createVesselEntity } from './mockVessel';
+import { initialVesselState, vesselAdapter, VesselPartialState } from './vessel.reducer';
 import * as VesselSelectors from './vessel.selectors';
 
 describe('Vessel Selectors', () => {
   const ERROR_MSG = 'No Error Available';
   const getVesselId = (it: Vessel) => it.id;
-  const createVesselEntity = (id: number, name: string) =>
-    ({
-      'id': id,
-      'name': name,
-      'mmsi': 999999901,
-      'imo': 1023401,
-      'companyId': 2301,
-      'companyName': 'Alpha Company',
-      'startDate': '1998-01-01T00:00:00Z',
-      'active': true,
-      'vesselType': 'Dry Cargo'
-    } as Vessel);
 
   let state: VesselPartialState;
 

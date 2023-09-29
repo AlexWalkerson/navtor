@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
-
+import { createVesselEntity } from './mockVessel';
 import * as VesselActions from './vessel.actions';
-import { Vessel } from '../../models/vessel.models';
 import {
   VesselState,
   initialVesselState,
@@ -9,17 +8,6 @@ import {
 } from './vessel.reducer';
 
 describe('Vessel Reducer', () => {
-  const createVesselEntity = (id: number, name: string): Vessel => ({
-    'id': id,
-    'name': name,
-    'mmsi': 999999901,
-    'imo': 1023401,
-    'companyId': 2301,
-    'companyName': 'Alpha Company',
-    'startDate': '1998-01-01T00:00:00Z',
-    'active': true,
-    'vesselType': 'Dry Cargo'
-  });
 
   describe('valid Vessel actions', () => {
     it('loadVesselSuccess should return the list of known Vessel', () => {
@@ -33,6 +21,24 @@ describe('Vessel Reducer', () => {
 
       expect(result.loaded).toBe(true);
       expect(result.ids.length).toBe(2);
+    });
+
+    it('selectVessel should select a vessel', () => {
+      const vessel = createVesselEntity(1, 'PRODUCT-AAA');
+      const action = VesselActions.selectVessel({ vessel });
+      const result = vesselReducer(initialVesselState, action);
+
+      expect(result.selectedId).toEqual(vessel.id);
+    });
+
+    it('loadVesselFailure should log an error', () => {
+      const error = new Error('woops');
+      const action = VesselActions.loadVesselFailure({ error: error.message });
+      const result = vesselReducer(initialVesselState, action);
+
+      expect(result.error).toEqual('woops');
+      expect(result.loaded).toBeFalsy();
+      expect(result.loading).toBeFalsy();
     });
   });
 

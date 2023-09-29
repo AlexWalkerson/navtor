@@ -10,5 +10,10 @@ export const loadVesselSuccess = createAction(
 
 export const loadVesselFailure = createAction(
   '[Vessel/API] Load Vessel Failure',
-  props<{ error: unknown }>()
+  props<{ error: string }>()
+);
+
+export const selectVessel = createAction(
+  '[Vessel] Select',
+  props<{ vessel: Vessel }>()
 );
