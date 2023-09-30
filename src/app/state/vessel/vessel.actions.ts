@@ -15,5 +15,5 @@ export const loadVesselFailure = createAction(
 
 export const selectVessel = createAction(
   '[Vessel] Select',
-  props<{ vessel: Vessel }>()
+  props<{ id: number }>()
 );

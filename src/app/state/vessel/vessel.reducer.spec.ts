@@ -25,7 +25,7 @@ describe('Vessel Reducer', () => {
 
     it('selectVessel should select a vessel', () => {
       const vessel = createVesselEntity(1, 'PRODUCT-AAA');
-      const action = VesselActions.selectVessel({ vessel });
+      const action = VesselActions.selectVessel({ id: vessel.id });
       const result = vesselReducer(initialVesselState, action);
 
       expect(result.selectedId).toEqual(vessel.id);

@@ -46,9 +46,9 @@ const reducer = createReducer(
     loading: false,
     error
   } )),
-  on(VesselActions.selectVessel, (state, { vessel }) => ({
+  on(VesselActions.selectVessel, (state, { id }) => ({
     ...state,
-    selectedId: vessel.id
+    selectedId: id
     })
   )
 );
