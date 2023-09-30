@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Emission } from '../models/emission.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EmissionApiService {
 
   readonly endpoint = 'https://frontendteamfiles.blob.core.windows.net/exercises';

@@ -11,6 +11,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'emissions',
-    loadComponent: () => import('modules/emissions').then(m => m.EmissionsComponent)
+    loadChildren: () => import('modules/emissions/src/lib/lib.routes')
   }
 ];

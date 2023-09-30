@@ -2,7 +2,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { Emission } from '../models/emission.model';
 
-import { EmissionApiService } from './emission-api-.service';
+import { EmissionApiService } from './emission-api.service';
 
 describe('EmissionApiService', () => {
   let service: EmissionApiService;
@@ -37,7 +37,8 @@ describe('EmissionApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [EmissionApiService]
     });
     service = TestBed.inject(EmissionApiService);
     httpController = TestBed.inject(HttpTestingController);
