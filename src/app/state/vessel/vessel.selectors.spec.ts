@@ -4,7 +4,7 @@ import { initialVesselState, vesselAdapter, VesselPartialState } from './vessel.
 import * as VesselSelectors from './vessel.selectors';
 
 describe('Vessel Selectors', () => {
-  const ERROR_MSG = 'No Error Available';
+  const ERROR = new Error('No Error Available');
   const getVesselId = (it: Vessel) => it.id;
 
   let state: VesselPartialState;
@@ -20,8 +20,9 @@ describe('Vessel Selectors', () => {
         {
           ...initialVesselState,
           selectedId: 2,
-          error: ERROR_MSG,
+          error: ERROR,
           loaded: true,
+          loading: false
         }
       ),
     };
@@ -50,7 +51,7 @@ describe('Vessel Selectors', () => {
     it('selectVesselError() should return the current "error" state', () => {
       const result = VesselSelectors.selectVesselError(state);
 
-      expect(result).toBe(ERROR_MSG);
+      expect(result).toBe(ERROR);
     });
   });
 });

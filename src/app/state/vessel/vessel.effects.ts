@@ -1,24 +1,23 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { switchMap, catchError, of, tap } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { VesselApiService } from '../../services/vessel-api.service';
 import * as VesselActions from './vessel.actions';
 
 @Injectable()
 export class VesselEffects {
   private actions$ = inject(Actions);
+  private vesselApi = inject(VesselApiService);
 
-  constructor(private vesselApi: VesselApiService) {}
-
-  init$ = createEffect(() =>
+  load$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VesselActions.loadVessel),
       switchMap(() => this.vesselApi.fetch()),
-      tap(e => console.log(e)),
-      switchMap((vessels) => of(VesselActions.loadVesselSuccess({ vessels }))),
+      map((vessels) => VesselActions.loadVesselSuccess({ vessels })),
       catchError((error: HttpErrorResponse) => {
-        return of(VesselActions.loadVesselFailure({ error: error?.message }));
+        console.error('Error', error);
+        return of(VesselActions.loadVesselFailure({ error }));
       })
     )
   );

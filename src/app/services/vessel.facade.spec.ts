@@ -1,8 +1,10 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
+import { VesselApiService } from './vessel-api.service';
 
 import * as VesselActions from '../state/vessel/vessel.actions';
 import { VesselEffects } from '../state/vessel/vessel.effects';
@@ -36,7 +38,15 @@ describe('VesselFacade', () => {
           StoreModule.forFeature(VESSEL_FEATURE_KEY, vesselReducer),
           EffectsModule.forFeature([VesselEffects]),
         ],
-        providers: [VesselFacade],
+        providers: [
+          VesselFacade,
+          {
+            provide: VesselApiService,
+            useValue: {
+              fetch: jest.fn(() => of([]))
+            }
+          }
+        ]
       })
       class CustomFeatureModule {}
 
@@ -45,6 +55,7 @@ describe('VesselFacade', () => {
           StoreModule.forRoot({}),
           EffectsModule.forRoot([]),
           CustomFeatureModule,
+          HttpClientTestingModule
         ],
       })
       class RootModule {}
@@ -57,7 +68,7 @@ describe('VesselFacade', () => {
     /**
      * The initially generated facade::loadAll() returns empty array
      */
-    it('loadAll() should return empty list with loaded == true', async () => {
+    it('load() should return empty list with loaded == true', async () => {
       let list = await firstValueFrom(facade.allVessel$);
       let isLoaded = await firstValueFrom(facade.loaded$);
 

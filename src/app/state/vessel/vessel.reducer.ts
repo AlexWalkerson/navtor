@@ -10,7 +10,7 @@ export interface VesselState extends EntityState<Vessel> {
   selectedId?: string | number; // which Vessel record has been selected
   loaded: boolean; // has the Vessel list been loaded
   loading: boolean;
-  error?: string | null; // last known error (if any)
+  error?: Error | null; // last known error (if any)
 }
 
 export interface VesselPartialState {

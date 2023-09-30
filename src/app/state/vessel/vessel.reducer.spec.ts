@@ -33,12 +33,13 @@ describe('Vessel Reducer', () => {
 
     it('loadVesselFailure should log an error', () => {
       const error = new Error('woops');
-      const action = VesselActions.loadVesselFailure({ error: error.message });
+      const action = VesselActions.loadVesselFailure({ error });
       const result = vesselReducer(initialVesselState, action);
 
-      expect(result.error).toEqual('woops');
-      expect(result.loaded).toBeFalsy();
-      expect(result.loading).toBeFalsy();
+      expect(result.error).toBeTruthy();
+      expect(result.error?.message).toEqual('woops');
+      expect(result.loaded).toBe(false);
+      expect(result.loading).toBe(false);
     });
   });
 
