@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { EmissionApiService } from './services/emission-api.service';
+import { EmissionsApiService } from './services/emissions-api.service';
 import { EmissionsComponent } from './emissions/emissions.component';
 import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import * as fromEmission from './state/emission.reducer';
-import { EmissionEffects } from './state/emission.effects';
+import * as fromEmissions from './state/emissions.reducer';
+import { EmissionsEffects } from './state/emissions.effects';
 
 export default [
   {
@@ -12,11 +12,11 @@ export default [
     component: EmissionsComponent,
     providers: [
       provideState(
-        fromEmission.EMISSION_FEATURE_KEY,
-        fromEmission.emissionReducer
+        fromEmissions.EMISSIONS_FEATURE_KEY,
+        fromEmissions.emissionsReducer
       ),
-      provideEffects(EmissionEffects),
-      EmissionApiService
+      provideEffects(EmissionsEffects),
+      EmissionsApiService
     ],
   },
 ] satisfies Routes;

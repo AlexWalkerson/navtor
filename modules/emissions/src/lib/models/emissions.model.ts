@@ -1,12 +1,12 @@
 /**
  * Interface for the Emissions data
  */
-export interface Emission {
+export interface Emissions {
   id: number;
-  timeSeries: EmissionSeries[];
+  timeSeries: EmissionsSeries[];
 }
 
-export interface EmissionSeries {
+export interface EmissionsSeries {
   report_from_utc: string;
   report_to_utc: string;
   co2_emissions: number;

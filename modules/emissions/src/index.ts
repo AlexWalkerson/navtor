@@ -1,7 +1,7 @@
-export * from './lib/state/emission.models';
-export * from './lib/state/emission.selectors';
-export * from './lib/state/emission.reducer';
-export * from './lib/state/emission.actions';
+export * from './lib/models/emissions.model';
+export * from './lib/state/emissions.selectors';
+export * from './lib/state/emissions.reducer';
+export * from './lib/state/emissions.actions';
 export * from './lib/emissions/emissions.component';
 
 export * from './lib/lib.routes';

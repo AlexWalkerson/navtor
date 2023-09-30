@@ -1,14 +1,13 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { Emission } from '../models/emission.model';
+import { Emissions } from '../models/emissions.model';
+import { EmissionsApiService } from './emissions-api.service';
 
-import { EmissionApiService } from './emission-api.service';
-
-describe('EmissionApiService', () => {
-  let service: EmissionApiService;
+describe('EmissionsApiService', () => {
+  let service: EmissionsApiService;
   let httpController: HttpTestingController;
 
-  const mockEmissions: Emission[] = [
+  const mockEmissions: Emissions[] = [
     {
       id: 10001,
       timeSeries: [{
@@ -38,9 +37,9 @@ describe('EmissionApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [EmissionApiService]
+      providers: [EmissionsApiService]
     });
-    service = TestBed.inject(EmissionApiService);
+    service = TestBed.inject(EmissionsApiService);
     httpController = TestBed.inject(HttpTestingController);
   });
 
@@ -50,7 +49,7 @@ describe('EmissionApiService', () => {
 
   describe('fetch', () => {
     it('should fetch emissions from the server', () => {
-      service.fetch().subscribe((e: Emission[]) => {
+      service.fetch().subscribe((e: Emissions[]) => {
         expect(e).toEqual(mockEmissions);
       });
 
