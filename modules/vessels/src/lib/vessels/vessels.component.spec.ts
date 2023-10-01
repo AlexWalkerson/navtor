@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Panel, PanelModule } from 'primeng/panel';
+import { provideMockStore } from '@ngrx/store/testing';
 import { VesselsComponent } from './vessels.component';
+import { VesselFacade } from '../services/vessel.facade';
 
 describe('VesselsComponent', () => {
   let component: VesselsComponent;
   let fixture: ComponentFixture<VesselsComponent>;
 
   beforeEach(async () => {
-    TestBed.overrideComponent(Panel, {set: {styles: ['']}}); // fix Error: Could not parse CSS stylesheet
     await TestBed.configureTestingModule({
-      imports: [VesselsComponent, PanelModule, BrowserAnimationsModule],
+      imports: [VesselsComponent, BrowserAnimationsModule],
+      providers: [provideMockStore({}), VesselFacade]
     }).compileComponents();
 
     fixture = TestBed.createComponent(VesselsComponent);

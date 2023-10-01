@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "modules/emissions": ["modules/emissions/src/index.ts"],
       "modules/layout": ["modules/layout/src/index.ts"],
       "modules/vessels": ["modules/vessels/src/index.ts"]
     }
