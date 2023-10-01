@@ -111,9 +111,6 @@ describe('VesselFacade', () => {
       expect(isLoaded).toBe(true);
     });
 
-    /**
-     * The initially generated facade::loadAll() returns empty array
-     */
     it('loadOnce() should load data once', async () => {
       let isLoaded = await firstValueFrom(facade.loaded$);
 
@@ -129,6 +126,25 @@ describe('VesselFacade', () => {
       facade.loadOnce();
 
       expect(facade.load).toHaveBeenCalledTimes(1);
+    });
+
+    it('select() should select entity', async () => {
+      let list = await firstValueFrom(facade.allVessel$);
+      let selectedVessel = await firstValueFrom(facade.selectedVessel$);
+
+      expect(list.length).toBe(0);
+      expect(selectedVessel).toBeUndefined();
+
+      const entities = [createVesselEntity(1, 'AAA'), createVesselEntity(2, 'BBB')];
+      store.dispatch(VesselActions.loadVesselSuccess({ vessels: entities }));
+      list = await firstValueFrom(facade.allVessel$);
+
+      expect(list.length).toBe(2);
+
+      store.dispatch(VesselActions.selectVessel({ id: 2 }));
+      selectedVessel = await firstValueFrom(facade.selectedVessel$);
+
+      expect(selectedVessel).toBe(entities[1]);
     });
   });
 });

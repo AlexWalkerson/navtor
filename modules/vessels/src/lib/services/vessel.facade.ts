@@ -26,4 +26,8 @@ export class VesselFacade {
       filter(loaded => !loaded),
     ).subscribe(() => this.load());
   }
+
+  select(id: number) {
+    this.store.dispatch(VesselActions.selectVessel({ id }))
+  }
 }
