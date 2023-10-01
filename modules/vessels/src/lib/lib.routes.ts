@@ -3,6 +3,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { EmissionsComponent } from './emissions/emissions.component';
 import { EmissionsApiService } from './services/emissions-api.service';
+import { EmissionsFacade } from './services/emissions.facade';
 import { VesselApiService } from './services/vessel-api.service';
 import { VesselFacade } from './services/vessel.facade';
 import { EmissionsEffects } from './state/emissions/emissions.effects';
@@ -18,7 +19,8 @@ export default [
       provideEffects([VesselEffects, EmissionsEffects]),
       VesselApiService,
       VesselFacade,
-      EmissionsApiService
+      EmissionsApiService,
+      EmissionsFacade
     ],
     children: [
       {
