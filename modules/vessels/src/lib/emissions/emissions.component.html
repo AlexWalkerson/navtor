@@ -1,3 +1,6 @@
-<p>emissions works!</p>
-
-{{ emissions$ | async | json}}
+<div class='pb-3'>
+  <p-dropdown [formControl]='vesselControl' [options]='vessels' optionLabel='name' />
+</div>
+<div>
+  <lib-emissions-chart [emissions]='(selectedEmission$ | async)!' [vessel]='selectedVessel' />
+</div>
