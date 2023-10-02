@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { inject, Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { EmissionsApiService } from '../../services/emissions-api.service';
-import { switchMap, catchError, of } from 'rxjs';
 import * as EmissionsActions from './emissions.actions';
 
 @Injectable()
@@ -13,14 +13,18 @@ export class EmissionsEffects {
     this.actions$.pipe(
       ofType(EmissionsActions.loadEmissions),
       switchMap(() => this.emissionsApi.fetch().pipe(
-        switchMap((emissions) =>
-          of(EmissionsActions.loadEmissionsSuccess({ emissions }))
+        map((emissions) =>
+          EmissionsActions.loadEmissionsSuccess({ emissions })
         ),
         catchError((error) => {
           console.error('Error', error);
           return of(EmissionsActions.loadEmissionsFailure({ error }));
         })
-      ))
+      )),
+      catchError((error) => {
+        console.error('Error', error);
+        return of(EmissionsActions.loadEmissionsFailure({ error }));
+      })
     )
   );
 }
